@@ -211,15 +211,15 @@ end end end end end end end end end end end end end end end end end end end end 
   for red       in HOUSES return if brit = red and red!=blue                                                            then // 1. brit is in the red house
   for swede     in HOUSES return if swede!=norwegian and swede!=brit                                                    then // swede lives in a different house from norwegian and brit                             
   for dog       in HOUSES return if swede = dog                                                                         then // 2. swede owns a dog                                                  
-  for green     in HOUSES return if green!=blue and green!=red and red!=blue                                            then // red, green and blue houses are different                      
+  for green     in HOUSES return if green!=blue and green!=red                                                          then // red, green and blue houses are different                      
   for coffee    in HOUSES return if green = coffee and coffee!=milk                                                     then // 5. coffee drinker is in the green house                              
-  for white     in HOUSES return if white = green+1 and white!= red and white!=blue and white!=red                      then // 4. white house is to the right of the green house
+  for white     in HOUSES return if white = green+1 and white!= red and white!=blue                                     then // 4. white house is to the right of the green house
   for bird      in HOUSES return if bird!=dog                                                                           then // bird and dog live in different houses
   for pallmall  in HOUSES return if bird = pallmall                                                                     then // 6. pallmall smoker owns the bird
   for yellow    in HOUSES return if yellow!=white and yellow!=green and yellow!=red and yellow!=blue                    then // yellow is not white, green, red or blue
-  for dunhill   in HOUSES return if yellow = dunhill                                                                    then // 7. dunhill smoker is in the yellow house
+  for dunhill   in HOUSES return if yellow = dunhill and dunhill!=pallmall                                              then // 7. dunhill smoker is in the yellow house
   for bluemast  in HOUSES return if bluemast!=pallmall and bluemast!=dunhill                                            then // dunhill, bluemast and pallmall are different houses
-  for beer      in HOUSES return if beer = bluemast                                                                     then // 12. beer drinker smokes bluemast
+  for beer      in HOUSES return if beer = bluemast and beer!=milk and beer!=coffee                                     then //12. beer drinker smokes bluemast
   for german    in HOUSES return if german!=norwegian and german!=brit and german!=swede                                then // german lives in a different hose from norwegian, brit and swede
   for prince    in HOUSES return if prince = german and prince!=bluemast and prince!=dunhill and prince!=pallmall       then // 13. german smokes prince
   for blend     in HOUSES return if blend!=prince and blend!=bluemast and blend!=dunhill and blend!=pallmall            then // each house has a different smoke.
@@ -237,27 +237,50 @@ end end end end end end end end end end end end end end end end end end end end 
       dog       : dog,       bird   : bird,     cat      : cat,       horse  : horse,  fish   : fish
                 
     } else{}else{}else{}else{}else{}else{}else{}else{}else{}else{}else{}else{}else{}else{}else{}else{}else{}else{}else{}else{}else{}else{}else{}else{}else{},
- solution: solve([1,2,3,4,5])                            
+ solution: solve([1,2,3,4,5])                           
 }.solution//[solved=true]</text>
     </literalExpression>
   </decision>
   <decision id="Decision_039w6mz" name="Einstein Problem" />
+  <decision id="Decision_1vkt6s1" name="brief filters">
+    <variable id="InformationItem_1uj18c5" />
+    <literalExpression id="LiteralExpression_1tos9yg">
+      <text>{
+  HOUSES : [1,2,3,4,5],
+  norwegian: for norwegian in HOUSES[item=1]                                     return norwegian,
+  blue     : for blue      in HOUSES[item=norwegian[1]+1 or item=norwegian[1]-1] return blue,
+  milk     : for milk      in HOUSES[item=3]                                     return milk,
+  brit     : for brit      in HOUSES[item!=norwegian[1]]                         return brit,
+  red      : for red       in HOUSES[item=brit[1] and item!=blue[1]]             return red
+}
+/*
+{
+  "HOUSES": [    1,    2,    3,    4,    5  ],
+  "norwegian": [    1  ],
+  "blue": [    2  ],
+  "milk": [    3  ],
+  "brit": [    2,    3,    4,    5  ],  
+  "red": []
+}
+*/</text>
+    </literalExpression>
+  </decision>
   <textAnnotation id="TextAnnotation_0g5l49t">
-    <text>//1. The Brit lives in the red house.
-//2. The Swede keeps dogs as pets.
-//3. The Dane drinks tea.
-//4. The greenhouse is on the immediate left of the white house.
-//5. The owner of the greenhouse drinks coffee.
-//6. The person who smokes Pall Mall rears birds.
-//7. The owner of the yellow house smokes Dunhill.
-//8. The man living in the center house drinks milk.
-//9. The Norwegian lives in the first house.
-//10. The man who smokes Blends lives next to the one who keeps cats.
-//11. The man who keeps the horse lives next to the man who smokes Dunhill.
-//12. The man who smokes Blue Master drinks beer.
-//13. The German smokes Prince.
-//14. The Norwegian lives next to the blue house.
-//15. The man who smokes Blends has a neighbor who drinks water.</text>
+    <text>1. The Brit lives in the red house.
+2. The Swede keeps dogs as pets.
+3. The Dane drinks tea.
+4. The greenhouse is on the immediate left of the white house.
+5. The owner of the greenhouse drinks coffee.
+6. The person who smokes Pall Mall rears birds.
+7. The owner of the yellow house smokes Dunhill.
+8. The man living in the center house drinks milk.
+9. The Norwegian lives in the first house.
+10. The man who smokes Blends lives next to the one who keeps cats.
+11. The man who keeps the horse lives next to the man who smokes Dunhill.
+12. The man who smokes Blue Master drinks beer.
+13. The German smokes Prince.
+14. The Norwegian lives next to the blue house.
+15. The man who smokes Blends has a neighbor who drinks water.</text>
   </textAnnotation>
   <association id="Association_0v7129y">
     <sourceRef href="#TextAnnotation_0g5l49t" />
@@ -360,6 +383,9 @@ end end end end end end end end end end end end end end end end end end end end 
         <di:waypoint x="282" y="249" />
         <di:waypoint x="340" y="246" />
       </dmndi:DMNEdge>
+      <dmndi:DMNShape id="DMNShape_1tij6u0" dmnElementRef="Decision_1vkt6s1">
+        <dc:Bounds height="80" width="180" x="690" y="640" />
+      </dmndi:DMNShape>
     </dmndi:DMNDiagram>
   </dmndi:DMNDI>
 </definitions>
